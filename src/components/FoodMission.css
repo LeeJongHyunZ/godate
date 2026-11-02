@@ -1,0 +1,73 @@
+.food__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 4px 0 26px;
+}
+
+.food__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 6px 16px;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  background: #faf6f7;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+/* 터치 기기에서는 탭한 뒤 hover 가 남아 버리므로 마우스가 있을 때만 */
+@media (hover: hover) {
+  .food__item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(232, 74, 127, 0.12);
+  }
+}
+
+.food__item:focus-visible {
+  outline: 3px solid rgba(232, 74, 127, 0.4);
+  outline-offset: 2px;
+}
+
+/* 선택됨: 핑크 테두리 + 살짝 커짐 */
+.food__item--on,
+.food__item--on:hover {
+  border-color: var(--pink);
+  background: #fff;
+  transform: scale(1.06);
+  box-shadow: 0 12px 26px rgba(232, 74, 127, 0.22);
+}
+
+.food__emoji {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.food__name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  word-break: keep-all;
+}
+
+@media (max-width: 400px) {
+  .food__grid {
+    gap: 8px;
+  }
+  .food__item {
+    padding: 16px 4px 12px;
+    border-radius: 16px;
+  }
+  .food__emoji {
+    font-size: 32px;
+  }
+  .food__name {
+    font-size: 12px;
+  }
+}

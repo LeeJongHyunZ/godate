@@ -1,0 +1,52 @@
+.ask__media-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 6px 0 28px;
+}
+
+/* 사진/GIF 는 원래 비율대로, 너무 크지 않게 */
+.ask__media {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(100%, 280px);
+  max-height: 220px;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  background: var(--pink-soft);
+}
+
+.ask__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* Yes 는 No 를 피할수록 커짐 (transform 은 inline style 로 들어옴) */
+.ask__yes {
+  transform-origin: center;
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.ask__no-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 도망간 뒤에는 화면 어디든 떠다님 */
+.ask__no--loose {
+  position: fixed;
+  z-index: 20;
+  margin: 0;
+  transition:
+    left 0.25s ease,
+    top 0.25s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}

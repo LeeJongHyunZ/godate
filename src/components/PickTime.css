@@ -1,0 +1,23 @@
+.time__summary {
+  min-height: 62px;
+  margin: 4px 0 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  animation: screen-in 0.3s ease-out both;
+}
+
+.time__saved {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--pink);
+}
+
+.time__when {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}

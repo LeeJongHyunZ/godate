@@ -1,0 +1,255 @@
+.app {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 진행 바 아래, 카드가 떠 있는 영역 */
+.stage {
+  flex: 1;
+  display: flex;
+  padding: 12px 16px calc(36px + env(safe-area-inset-bottom));
+}
+
+.stage--full {
+  padding: 0;
+}
+
+/* 가운데 떠 있는 흰 카드. margin:auto 로 가운데 정렬하면 내용이 화면보다 길어져도 위쪽이 잘리지 않음 */
+.card {
+  width: 100%;
+  max-width: 460px;
+  margin: auto;
+  padding: 36px 28px 32px;
+  border-radius: 28px;
+  background: var(--card);
+  box-shadow: var(--card-shadow);
+  text-align: center;
+  /* fill-mode 를 forwards/both 로 두면 Chrome 이 애니메이션이 끝난 뒤에도 transform 컨테이너로 취급해
+     안쪽 position: fixed 요소의 기준점이 카드가 되어 버림 → backwards 로 둠 */
+  animation: card-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.card.is-exiting {
+  animation: card-out 0.22s ease-in forwards;
+  pointer-events: none;
+}
+
+/* 카드 없이 배경 전체를 쓰는 화면(축하 / 최종) */
+.screen {
+  width: 100%;
+  animation: screen-in 0.5s ease-out both;
+}
+
+.screen.is-exiting {
+  animation: screen-out 0.22s ease-in forwards;
+  pointer-events: none;
+}
+
+/* ── 공통 제목 ── */
+.title {
+  margin: 0 0 20px;
+  font-family: var(--font-script);
+  font-weight: 400;
+  /* 화면 폭에 따라 30px(320px 폰) ~ 42px(PC) 사이로 자연스럽게 */
+  font-size: clamp(30px, 9.5vw, 42px);
+  line-height: 1.15;
+  color: var(--text);
+  word-break: keep-all;
+}
+
+.title--pink {
+  color: var(--pink);
+}
+
+.title--red {
+  color: var(--red);
+}
+
+/* 제목 끝 이모지 묶음은 한 덩어리로 (Title 컴포넌트가 감쌈) */
+.title__emoji {
+  white-space: nowrap;
+}
+
+/* ── 공통 버튼 (알약) ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  padding: 13px 28px;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.12s ease;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(232, 74, 127, 0.4);
+  outline-offset: 2px;
+}
+
+.btn--primary {
+  background: var(--pink);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(232, 74, 127, 0.35);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--pink-strong);
+  box-shadow: 0 12px 28px rgba(232, 74, 127, 0.42);
+}
+
+.btn--ghost {
+  background: #fff;
+  color: var(--text);
+  border-color: #ecdfe4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  border-color: var(--pink-border);
+  background: #fff8fa;
+}
+
+.btn--lg {
+  padding: 16px 38px;
+  font-size: 17px;
+}
+
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+.btn:disabled {
+  background: #f1ebee;
+  color: #a99fa4;
+  border-color: #e7dde1;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* ── 공통 입력 ── */
+.field {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.field__label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.field__input {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  padding: 13px 16px;
+  border: 1.5px solid var(--pink-border);
+  border-radius: 14px;
+  background: #fff;
+  font-size: 16px;
+  color: var(--text);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.field__input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 4px rgba(232, 74, 127, 0.15);
+}
+
+/* iOS Safari 는 date/time 값을 가운데 정렬하므로 왼쪽으로 */
+.field__input::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+/* ── 공통 애니메이션 ── */
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateX(32px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes card-out {
+  to {
+    opacity: 0;
+    transform: translateX(-28px) scale(0.98);
+  }
+}
+
+@keyframes screen-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes screen-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* 통통 튀며 나타나기 (축하 제목, 최종 화면 사진 등) */
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  /* 전체화면 단계(celebrate / done)는 패딩 0 을 유지해야 하므로 제외 */
+  .stage:not(.stage--full) {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .card {
+    padding: 30px 20px 26px;
+    border-radius: 24px;
+  }
+}
+
+/* 아주 작은 폰(320~360px): 버튼 두 개가 한 줄에 들어가도록 */
+@media (max-width: 360px) {
+  .btn--lg {
+    padding: 14px 28px;
+    font-size: 16px;
+  }
+}
